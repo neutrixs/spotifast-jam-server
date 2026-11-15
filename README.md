@@ -55,6 +55,25 @@ to 30 seconds, so keep the proxy's read timeout above that.
 * **Leaving.** A listener who leaves (or goes quiet for 90 seconds) drops out.
   The host leaving, or going quiet for the grace period, ends the jam.
 
+## Testing with one Spotify account
+
+`tools/fake_listener.py` (Python, no dependencies) joins a jam as a second
+person. As a **host** it behaves like Spotifast's host without playing
+sound: it signs in to Spotify once in your browser (with the Client ID in
+Spotifast's settings and its registered address, `http://127.0.0.1:8989/login`)
+to read real songs, albums and playlists, plays them on a clock with their
+real lengths, moves through the jam's queue and then the playlist, with
+shuffle and repeat as Spotify plays them, and carries out every request your
+Spotifast sends. As a **guest** it sends the controls and songs a friend
+would. Run it with the server's address and type `help`:
+
+```sh
+python3 tools/fake_listener.py http://127.0.0.1:8787
+```
+
+What it cannot imitate: Spotify's Autoplay after a playlist ends (it stops,
+as with Autoplay off), and a real player's loading time.
+
 ## Invite links
 
 `https://your-server/jam/ABC234` opens a small page that hands the jam to
