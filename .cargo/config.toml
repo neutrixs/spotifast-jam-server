@@ -1,0 +1,8 @@
+# `cargo server` builds the binary to copy to a server: static, so it runs on
+# any 64-bit x86 Linux, and for every x86-64 CPU. Its target is not the one a
+# `target-cpu=native` setting for this desktop applies to.
+[alias]
+server = "build --release --target x86_64-unknown-linux-musl"
+
+[target.x86_64-unknown-linux-musl]
+rustflags = ["-C", "target-cpu=x86-64"]
