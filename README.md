@@ -148,3 +148,7 @@ No accounts and no rate limiting. Anyone who knows a code can join that jam.
 Everyone in a jam can also skip, reorder and clear its queue, as the host can.
 A code is about a billion possibilities and jams are short-lived, but run the
 server for people you trust, or put access control in front of it.
+
+## License
+
+MIT, the same as Spotifast. See [LICENSE](LICENSE).
