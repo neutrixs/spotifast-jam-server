@@ -1,0 +1,30 @@
+[package]
+name = "spotifast-jam-server"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+description = "A small server that keeps Spotifast jam sessions in sync"
+
+[dependencies]
+# HTTP routing on hyper; long polls park on a tokio watch channel per session.
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "query", "tokio"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "time", "signal"] }
+# Caps request bodies, so a client cannot hand the server megabytes of JSON.
+tower-http = { version = "0.6", features = ["limit", "trace"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Session codes and member tokens.
+rand = "0.9"
+clap = { version = "4.5", features = ["derive", "env"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
